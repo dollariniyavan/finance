@@ -1,17 +1,39 @@
 # Finance Android application
 
-This directory is a native Kotlin/Jetpack Compose Android version of the uploaded PHP loan system.
+This directory contains the native Kotlin/Jetpack Compose Android version of the uploaded PHP loan system.
 
-## Storage
+## Local storage
 
-The app uses an on-device SQLite database (`finance.db`) through `SQLiteOpenHelper`. No PHP server, MySQL server, login, or internet connection is required. Borrowers, loans, interest rates, payment totals, and statuses remain on the phone.
+The app is offline-first. It does not require PHP, MySQL, a server, or an internet connection. All records are stored on the phone in SQLite database `finance_mobile.db` through `SQLiteOpenHelper`.
 
-## Included features
+Stored data includes:
 
-- Dashboard totals for borrowers, active loans, and outstanding balance
-- Local borrower creation
-- Local loan creation with principal, interest rate, and start date
-- Marking a loan fully paid
+- Borrowers
+- Loans and interest rates
+- Payment records and payment dates
+- Loan status (`ACTIVE` or `PAID`)
+
+## Current features
+
+- Dashboard showing borrower count, active loans, principal, collected payments, and outstanding balance
+- Add borrowers with name, phone, and address
+- Add loans with borrower, principal, interest rate, and date
+- Record partial payments or pay a loan in full
 - Automatic interest and outstanding-balance calculations
+- Delete borrowers and loans with dependent records cleaned up
+- SQLite foreign keys, indexes, validation, and transaction-safe payment updates
+- Database upgrade path for future schema changes
+- Demo records automatically created on the first launch when the database is empty
 
-Open the repository in Android Studio and run the `app` configuration on an Android device or emulator. The original `loan_system2.zip` is retained as the legacy web source.
+## Open and run
+
+1. Open the repository root in Android Studio.
+2. Allow Gradle to sync and install the Android SDK for API 35 if requested.
+3. Select the `app` run configuration.
+4. Run on an Android emulator or physical device running Android 8.0 (API 26) or newer.
+
+The original `loan_system2.zip` remains in the repository as the legacy PHP source and reference. It is not required by the Android application.
+
+## Important backup note
+
+Because records are stored locally, uninstalling the app or clearing its storage removes the database. Add export/import before using the app for production records or make regular Android device backups.
